@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap} from '@angular/router';
 import { Location } from '@angular/common';
-
+import { IonicModule } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { FirebaseDbService } from '../firebase-db.service';
+import { PublicacionComponentModule } from './publicacion.module';
 //import * as data from '../../assets/feed.json';
 
 @Component({
@@ -38,10 +40,37 @@ export class PublicacionComponent implements OnInit {
     this._location.back();
   }
 
-  constructor(private rutaActiva: ActivatedRoute, private _location: Location) { }
+  constructor(
+    private rutaActiva: ActivatedRoute,
+     private _location: Location)ngOnInit(): void {
+      throw new Error('Method not implemented.');
+    }
+
+     private db: FirebaseDbService) { }
+
+     obtenerDetallePublicacion(param): void {
+
+      //agregar FN para obtenerDetalle de publicacion
+  
+      this.db.getPublicacion(param).subscribe(res=> {
+        console.log(res);
+  
+        let respuesta = Object.assign(res);
+  
+        this.descripcionPost = respuesta.descripcionPost;
+        this.usuario = respuesta.usuario;
+        this.urlImagen = respuesta.urlImagen;
+  
+      })
+  
+    }
 
   ngOnInit() {
-   
+    this.publicacionId = this.RutaActiva.snapshot.params.id;
+ 
+    console.log(this.RutaActiva.snapshot.params.id);
+ 
+    this.obtenerDetallePublicacion(this.publicacionId);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FirebaseDbService } from '../firebase-db.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,31 +8,38 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page implements OnInit{
-  constructor(private http:HttpClient) {}
+  constructor(private db:FirebaseDbService) {}
+
   bio:string;
   nombre:string;
   seguidores:number;
   siguiendo:number;
 
   obtenerPerfil():void{
-    this.http.get('https://login-ng-3fec3-default-rtdb.firebaseio.com/usuario.json')
-    .subscribe(respueta=>{
-      console.log(respueta);
 
-      let res=Object.assign(respueta);
+    this.db.getPerfilUsuario().subscribe(res=>{
+      console.log(res);
 
-      this.bio=res.bio;
-      this.nombre=respueta['nombre'];
-      this.seguidores=respueta['seguidores'];
-      this.siguiendo=respueta['siguiendo'];
+      let PerfilUsuario=Object.assign(res);
+
+      this.bio=PerfilUsuario.bio;
+      this.nombre=PerfilUsuario.nombre;
+      this.seguidores=PerfilUsuario.seguidores;
+      this.siguiendo=PerfilUsuario.siguiendo;
     })
+    
   }
+  
 
-  obtenerPublicacion():void{
-   // this.http.get()
+  obtenerPublicaciones():void{
+    this.db.getPublicaciones().subscribe(res=>{
+      console.log(res); 
+    })
   }
 
   ngOnInit(){
     this.obtenerPerfil();
+
+    this.obtenerPublicaciones();
   }
 }

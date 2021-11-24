@@ -20,27 +20,6 @@ import { HttpClient } from '@angular/common/http';
   declarations: [Tab2Page]
 })
 export class Tab2PageModule {
-  constructor(private http:HttpClient){}
 
-descripcionFoto:string='';
-usuario:string='';
-
-urlFoto:String='../assets/images/feed/feed1.png';
-
-datosPublicacion:any={
-  caption:this.descripcionFoto,
-  usuario: this.usuario,
-  urlFoto:this.urlFoto
-}
-
-testFn(params) : void{
-  
-}
-  crearPublicacion(params:{usuario:string, caption:string,urlForo:string}):void{
-    this.http.post('https://login-ng-3fec3-default-rtdb.firebaseio.com/publicaciones.json',datosPublicacion)
-    .subscribe(datosRespuesta=>{
-      console.log(datosRespuesta);
-    })
-  }
 }
 

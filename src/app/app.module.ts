@@ -9,18 +9,21 @@ import { AppComponent } from './app.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PublicacionesComponent } from './publicaciones/publicaciones.component';
 
-import {HttpClient} from '@angular/common/Http';
+import {HttpClientModule} from '@angular/common/Http';
 
 //Firebase App
 import { environment } from 'src/environments/environment';
 import{AngularFireModule} from '@angular/fire/compat';
 
+//Servicios
+import { FirebaseDbService } from './firebase-db.service';
 
 @NgModule({
   declarations: [PerfilComponent, AppComponent],
   entryComponents: [],
   imports: [
-    HttpClient,
+    HttpClientModule,
+    FirebaseDbService,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,    

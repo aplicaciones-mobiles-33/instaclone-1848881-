@@ -14,4 +14,13 @@ export class Tab1Page {
 
   constructor() {}
 
+  ngOnInit(): void {
+
+    this.cargarFeed();
+
+  }
+  cargarFeed() {
+    throw new Error('Method not implemented.');
+  }
+
 }
